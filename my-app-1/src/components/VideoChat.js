@@ -29,8 +29,18 @@ export default function VideoChat() {
     [username, roomName]
   );
 
-  const handleLogout = useCallback(() => {
-    setToken(null);
+  const handleLogout = useCallback((room, debugFrom) => {
+    if (room) {
+      for (const trackPublication of room.localParticipant.tracks) {
+        trackPublication.track?.stop();
+      }
+
+      console.log("DISCONNECTING ROOM");
+      room.disconnect();
+      console.log("DISCONNECTED ROOM");
+      console.log("LOGGING OUT:", debugFrom);
+      setToken(null);
+    }
   }, []);
 
   let render;

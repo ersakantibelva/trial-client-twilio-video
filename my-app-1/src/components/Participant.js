@@ -39,7 +39,7 @@ export default function Participant({participant}) {
       setAudioTracks([])
       participant.removeAllListeners()
     }
-  }, participant)
+  }, [participant])
 
   useEffect(() => {
     const videoTrack = videoTracks[0]
@@ -61,7 +61,9 @@ export default function Participant({participant}) {
         audioTrack.detach()
       }
     }
-  }, audioTracks)
+  }, [audioTracks])
+
+  console.log(participant, "<<<<<<<<<< particiapnt");
 
   return (
     <div className="participant">
